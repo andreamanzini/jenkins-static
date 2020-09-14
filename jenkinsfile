@@ -10,5 +10,12 @@ pipeline {
                 '''
             }
         }
+        stage('UploadS3') {
+            steps {
+                withAWS(region:'eu-west-3', roleAccount: '374427400193', role: 'jenkins') {
+                    s3Upload(file:'index.html', bucket:'udacity-devops-jenkins-trial', path:'./index.html')
+                }
+            }
+        }
     }
 }
